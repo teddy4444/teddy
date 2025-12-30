@@ -3,316 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수익 운명 점치기 | 3D 미스틱 점술가</title>
+    <title>나의 첫 수익 메이트 매칭</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap');
         
         :root {
-            --purple-magic: #A855F7;
-            --blue-magic: #3B82F6;
+            --point-color: #3CCCD4; 
+            --point-secondary: #6366F1;
+            --bg-white: #FFFFFF;
+            --btn-bg: rgba(147, 51, 234, 0.1);
+            --btn-text: #7C3AED;
         }
 
         body { 
             font-family: 'Pretendard', sans-serif; 
-            background: radial-gradient(circle at center, #2e1065 0%, #1e1b4b 50%, #0f172a 100%);
-            color: #f8fafc;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            padding: 20px;
+            background-color: #F9FAFB; 
+            color: #1F2937;
+            display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0;
         }
 
-        /* ✨ 폰트 색상 실시간 순환 (보라-파랑) */
-        .magic-text {
-            background: linear-gradient(to right, #8B5CF6, #3B82F6, #D8B4FE, #60A5FA, #8B5CF6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            background-size: 200% auto;
-            animation: purpleBlueFlow 4s linear infinite;
-        }
-
-        @keyframes purpleBlueFlow {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-
-        /* 메인 카드 레이아웃 */
         .main-card {
-            width: 100%;
-            max-width: 480px;
-            min-height: 820px;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-            border-radius: 3.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 3.5rem 2.5rem;
-            position: relative;
-            text-align: center;
-        }
-
-        /* 🧙‍♂️ 3D 점술가의 방 장면 */
-        .fortune-scene {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            background: radial-gradient(ellipse at bottom, #2e1065 0%, #0f172a 70%);
-            border-radius: 2rem;
-            margin-bottom: 2.5rem;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-        /* 신비로운 안개 효과 */
-        .mystic-fog {
-            position: absolute;
-            width: 150%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 60%);
-            animation: fogMove 8s infinite ease-in-out;
-        }
-
-        @keyframes fogMove {
-            0%, 100% { transform: translate(-10%, -10%) scale(1); opacity: 0.4; }
-            50% { transform: translate(10%, 10%) scale(1.2); opacity: 0.7; }
-        }
-
-        /* 입체 요술 구슬 */
-        .crystal-ball-3d {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #fff 0%, #a855f7 20%, #4c1d95 60%, #1e1b4b 100%);
-            box-shadow: 
-                0 0 60px rgba(168, 85, 247, 0.5),
-                inset -10px -10px 30px rgba(0,0,0,0.6);
-            z-index: 10;
-            animation: orbFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-15px) scale(1.05); }
-        }
-
-        /* 💗 버튼 펄스 효과 (커졌다 작아졌다) */
-        .btn-pulse {
-            background: linear-gradient(135deg, #7c3aed, #2563eb);
-            animation: pulseAction 2s infinite ease-in-out;
-            transition: all 0.3s ease;
-        }
-
-        @keyframes pulseAction {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(124, 58, 237, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
-        }
-
-        /* 타로 카드 스타일 */
-        .tarot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; width: 100%; }
-        .tarot-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(168, 85, 247, 0.15);
-            border-radius: 1.5rem;
-            padding: 1.5rem 0.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            aspect-ratio: 2 / 3.2;
-            display: flex;
-            flex-direction: column;
+            width: 100%; max-width: 480px; min-height: 850px;
+            background: var(--bg-white); border-radius: 3.5rem;
+            box-shadow: 0 40px 100px -20px rgba(60, 204, 212, 0.12);
+            display: flex; flex-direction: column;
             align-items: center; justify-content: center;
-        }
-        .tarot-card:hover {
-            background: rgba(168, 85, 247, 0.1);
-            border-color: var(--purple-magic);
-            transform: translateY(-5px);
+            padding: 4rem 1.5rem; position: relative; border: 1px solid rgba(60, 204, 212, 0.08);
         }
 
-        .step { display: none; width: 100%; flex-direction: column; align-items: center; justify-content: center; }
-        .step.active { display: flex; animation: fadeIn 0.6s ease forwards; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .step { display: none; width: 100%; flex-direction: column; align-items: center; text-align: center; }
+        .step.active { display: flex; animation: fadeIn 0.6s ease-out; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .animated-title {
+            background: linear-gradient(90deg, #3CCCD4, #6366F1, #3CCCD4);
+            background-size: 200% auto;
+            color: transparent; -webkit-background-clip: text; background-clip: text;
+            animation: gradientMove 4s linear infinite; display: inline-block;
+        }
+        @keyframes gradientMove { to { background-position: 200% center; } }
+
+        .glass-orb {
+            width: 160px; height: 160px; border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 1) 0%, rgba(60, 204, 212, 0.3) 30%, rgba(147, 51, 234, 0.2) 60%, rgba(59, 130, 246, 0.1) 100%);
+            box-shadow: inset -10px -10px 30px rgba(60, 204, 212, 0.2), inset 10px 10px 30px rgba(255, 255, 255, 0.8), 0 20px 50px rgba(60, 204, 212, 0.1);
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            position: relative; margin: 2rem 0; animation: float 4s infinite ease-in-out;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        .tarot-grid-3x2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; width: 100%; margin-top: 1rem; }
+        .option-grid-vertical { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; width: 100%; margin-top: 1rem; }
+
+        .tarot-card {
+            background: #FFFFFF; border: 2px solid #F3F4F6; border-radius: 1.25rem;
+            aspect-ratio: 1 / 1.4; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 0.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tarot-card:hover { border-color: var(--point-color); background: #f0fdfe; transform: translateY(-5px); }
+        .tarot-card span.label { font-size: 0.75rem; font-weight: 800; color: #4B5563; margin-top: 0.5rem; line-height: 1.2; }
+
+        .capsule-button {
+            background-color: var(--btn-bg); color: var(--btn-text);
+            border-radius: 9999px; width: 100%; padding: 1.1rem;
+            font-weight: 700; font-size: 1.1rem; transition: all 0.2s ease; margin-top: 1.5rem;
+        }
+        .capsule-button:hover { background-color: rgba(147, 51, 234, 0.15); transform: scale(1.02); }
+
+        #progress-bar { transition: width 0.4s ease; background: linear-gradient(90deg, #3CCCD4 0%, #7C3AED 100%); }
+        .choice-summary { background-color: #F9FAFB; border-radius: 1.5rem; width: 100%; padding: 1.5rem; margin-top: 2rem; border: 1px dashed rgba(60, 204, 212, 0.2); text-align: center; }
     </style>
 </head>
 <body>
 
 <div id="app" class="main-card">
-    
-    <div id="progress-container" class="absolute top-10 left-0 w-full px-12 hidden">
-        <div class="w-full bg-white/5 h-1 rounded-full overflow-hidden">
-            <div id="progress-bar" class="h-full w-0 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-700"></div>
+    <div id="progress-container" class="absolute top-10 left-0 w-full px-10 hidden">
+        <div class="flex justify-between items-center mb-2 px-1">
+            <span class="text-[11px] font-bold text-[#3CCCD4] uppercase tracking-widest">매칭 진행률</span>
+            <span id="percent-text" class="text-[11px] font-bold text-[#3CCCD4]">0%</span>
+        </div>
+        <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full w-0 shadow-[0_0_8px_rgba(60,204,212,0.4)]"></div>
         </div>
     </div>
 
     <div id="step-0" class="step active">
-        <h1 class="text-3xl font-extrabold mb-10 leading-tight">
-            <span class="magic-text">나의 사진첩에 숨겨진</span><br>
-            <span class="magic-text">수익의 운명은?</span>
-        </h1>
-
-        <div class="fortune-scene">
-            <div class="mystic-fog"></div>
-            <div class="crystal-ball-3d"></div>
-        </div>
-
-        <p class="text-slate-400 text-sm mb-12 leading-relaxed">
-            당신의 갤러리 속 사진 한 장이 이끄는<br>신비로운 제휴 파트너를 점쟁이 구슬로 확인하세요.
-        </p>
-
-        <button onclick="startTest()" class="btn-pulse w-full text-white py-5 rounded-2xl font-bold text-lg tracking-wider">
-            운명의 카드 펼치기 🔮
-        </button>
+        <h1 class="text-[26px] font-extrabold mb-2 leading-tight tracking-tight animated-title">나의 첫 수익 메이트 매칭</h1>
+        <div class="glass-orb"></div>
+        <p class="text-gray-500 text-[15px] mb-2 leading-relaxed font-medium">최근 당신이 기록한 선명한 기억을 분석하여<br>최적의 수익 파트너를 연결해 드릴게요.</p>
+        <button onclick="startTest()" class="capsule-button">매칭 시작하기 ✨</button>
     </div>
 
     <div id="step-1" class="step">
-        <h2 class="text-xl font-bold mb-10">Q1. 지금 블로그에 가장<br>올리고 싶은 <span class="magic-text">사진</span>은?</h2>
-        <div class="tarot-grid">
-            <div onclick="save('q1', 'stay')" class="tarot-card">
-                <span class="text-3xl mb-4">🏨</span>
-                <span class="text-xs font-bold text-slate-300">감성 숙소</span>
-            </div>
-            <div onclick="save('q1', 'tour')" class="tarot-card">
-                <span class="text-3xl mb-4">🎡</span>
-                <span class="text-xs font-bold text-slate-300">여행 풍경</span>
-            </div>
-            <div onclick="save('q1', 'style')" class="tarot-card">
-                <span class="text-3xl mb-4">👗</span>
-                <span class="text-xs font-bold text-slate-300">패션/소품</span>
-            </div>
+        <h2 class="text-[20px] font-bold mb-8 text-gray-800 animated-title">최근 이용한 상품 중<br>기억에 남은 한 가지는?</h2>
+        <div class="tarot-grid-3x2">
+            <div onclick="save('q1', '숙소', '🏨')" class="tarot-card"><span>🏨</span><span class="label">숙소</span></div>
+            <div onclick="save('q1', '투어', '🎡')" class="tarot-card"><span>🎡</span><span class="label">액티비티</span></div>
+            <div onclick="save('q1', '리빙', '🛋️')" class="tarot-card"><span>🛋️</span><span class="label">인테리어</span></div>
+            <div onclick="save('q1', '항공', '✈️')" class="tarot-card"><span>✈️</span><span class="label">항공권</span></div>
+            <div onclick="save('q1', '유심', '📱')" class="tarot-card"><span>📱</span><span class="label">유심</span></div>
+            <div onclick="save('q1', '렌터카', '🚗')" class="tarot-card"><span>🚗</span><span class="label">렌터카</span></div>
         </div>
     </div>
 
     <div id="step-2" class="step">
-        <h2 class="text-xl font-bold mb-10">Q2. 그 사진 속 아이템은<br><span class="magic-text">어디서</span> 결제했나요?</h2>
-        <div class="tarot-grid">
-            <div onclick="save('q2', 'dom')" class="tarot-card">
-                <span class="text-3xl mb-4">🇰🇷</span>
-                <span class="text-xs font-bold text-slate-300">국내 플랫폼</span>
-            </div>
-            <div onclick="save('q2', 'global')" class="tarot-card">
-                <span class="text-3xl mb-4">🌎</span>
-                <span class="text-xs font-bold text-slate-300">해외 직구</span>
-            </div>
-            <div onclick="save('q2', 'gen')" class="tarot-card">
-                <span class="text-3xl mb-4">🃏</span>
-                <span class="text-xs font-bold text-slate-300">기억 안남</span>
-            </div>
+        <h2 class="text-[20px] font-bold mb-8 text-gray-800 animated-title">그 경험의 가장 큰 매력은?</h2>
+        <div class="option-grid-vertical">
+            <div onclick="save('q2', '경제성', '💰')" class="tarot-card"><span>💰</span><span class="label">경제적<br>가격</span></div>
+            <div onclick="save('q2', '심미성', '✨')" class="tarot-card"><span>✨</span><span class="label">분위기<br>감성</span></div>
+            <div onclick="save('q2', '편의성', '🛠️')" class="tarot-card"><span>🛠️</span><span class="label">편리한<br>이용</span></div>
         </div>
     </div>
 
     <div id="step-3" class="step">
-        <h2 class="text-xl font-bold mb-10">Q3. 어떤 포인트로<br><span class="magic-text">이웃을 설득</span>할까요?</h2>
-        <div class="tarot-grid">
-            <div onclick="calculate('price')" class="tarot-card">
-                <span class="text-3xl mb-4">💰</span>
-                <span class="text-xs font-bold text-slate-300">가성비</span>
-            </div>
-            <div onclick="calculate('unique')" class="tarot-card">
-                <span class="text-3xl mb-4">✨</span>
-                <span class="text-xs font-bold text-slate-300">취향 저격</span>
-            </div>
-            <div onclick="calculate('info')" class="tarot-card">
-                <span class="text-3xl mb-4">📑</span>
-                <span class="text-xs font-bold text-slate-300">상세 가이드</span>
-            </div>
+        <h2 class="text-[20px] font-bold mb-8 text-gray-800 animated-title">어떤 스타일로 기록할까요?</h2>
+        <div class="option-grid-vertical">
+            <div onclick="save('q3', '비주얼', '📸')" class="tarot-card"><span>📸</span><span class="label">비주얼<br>중심</span></div>
+            <div onclick="save('q3', '정보전달', '🔍')" class="tarot-card"><span>🔍</span><span class="label">상세한<br>정보</span></div>
+            <div onclick="save('q3', '후기', '💬')" class="tarot-card"><span>💬</span><span class="label">진솔한<br>후기</span></div>
         </div>
-    </div>
-
-    <div id="step-loading" class="step">
-        <div class="fortune-scene scale-75 mb-10">
-            <div class="crystal-ball-3d"></div>
-        </div>
-        <h3 class="text-xl font-bold mb-2">운명 조율 중...</h3>
-        <p id="loading-text" class="text-purple-400 font-medium animate-pulse">우주의 에너지를 모으는 중</p>
     </div>
 
     <div id="step-result" class="step">
-        <div class="mb-4 text-blue-400 text-xs font-black tracking-widest uppercase" id="persona-name"></div>
-        <h2 id="final-brand" class="text-4xl font-black mb-10 text-white tracking-tighter"></h2>
+        <div class="mb-2 text-[#3CCCD4] text-[12px] font-black tracking-widest uppercase" id="persona-name"></div>
+        <h2 id="final-brand" class="text-[40px] font-black mb-8 text-gray-900 tracking-tighter leading-tight"></h2>
         
-        <div class="grid grid-cols-3 gap-3 w-full mb-10">
-            <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
-                <p class="text-[10px] text-slate-500 font-bold mb-1">수익운</p>
-                <p class="font-black text-purple-400 text-lg">대박</p>
-            </div>
-            <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
-                <p class="text-[10px] text-slate-500 font-bold mb-1">영향력</p>
-                <p class="font-black text-blue-400 text-lg">최상</p>
-            </div>
-            <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
-                <p class="text-[10px] text-slate-500 font-bold mb-1">궁합</p>
-                <p class="font-black text-white text-lg">99%</p>
-            </div>
+        <div class="grid grid-cols-3 gap-3 w-full mb-8">
+            <div class="bg-gray-50 py-4 rounded-2xl border border-gray-100"><p class="text-[10px] text-gray-400 font-bold mb-1">수익운</p><p class="font-extrabold text-[#3CCCD4] text-lg">대박</p></div>
+            <div class="bg-gray-50 py-4 rounded-2xl border border-gray-100"><p class="text-[10px] text-gray-400 font-bold mb-1">영향력</p><p class="font-extrabold text-[#3CCCD4] text-lg">최상</p></div>
+            <div class="bg-gray-50 py-4 rounded-2xl border border-gray-100"><p class="text-[10px] text-gray-400 font-bold mb-1">궁합도</p><p class="font-extrabold text-[#3CCCD4] text-lg"><span id="match-rate"></span></p></div>
         </div>
 
-        <button onclick="location.reload()" class="btn-pulse w-full text-white py-5 rounded-2xl font-bold text-lg">
-            운명의 링크 생성하기 🔗
-        </button>
+        <button onclick="location.reload()" class="capsule-button">첫 링크 생성하러 가기 🔗</button>
+
+        <div class="choice-summary">
+            <p class="text-[11px] font-black text-[#3CCCD4] uppercase mb-2">나의 선택 리포트</p>
+            <p id="user-review" class="text-[13px] font-semibold text-gray-600 leading-relaxed"></p>
+        </div>
     </div>
 </div>
 
 <script>
-    let answers = { q1: '', q2: '' };
-
-    function startTest() {
-        document.getElementById('progress-container').classList.remove('hidden');
-        nextStep(1);
-    }
-
+    let answers = {};
+    function startTest() { document.getElementById('progress-container').classList.remove('hidden'); nextStep(1); }
     function nextStep(n) {
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        const targetId = (n === 'loading') ? 'step-loading' : (n === 'result' ? 'step-result' : 'step-' + n);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) targetElement.classList.add('active');
-        
-        const progressMap = { 1: 33, 2: 66, 3: 90, 'loading': 100, 'result': 100 };
+        const targetId = (n === 'result' ? 'step-result' : 'step-' + n);
+        document.getElementById(targetId).classList.add('active');
+        const progressMap = { 1: 33, 2: 66, 3: 100, 'result': 100 };
         document.getElementById('progress-bar').style.width = (progressMap[n] || 0) + '%';
+        document.getElementById('percent-text').innerText = (progressMap[n] || 0) + '%';
     }
-
-    function save(q, v) {
-        answers[q] = v;
-        const currentNum = parseInt(q.charAt(1));
-        nextStep(currentNum + 1);
+    function save(q, val, icon) {
+        answers[q] = { text: val, icon: icon };
+        const cur = parseInt(q.charAt(1));
+        if (cur < 3) nextStep(cur + 1); else calculate();
     }
+    function calculate() {
+        let brand = ""; let persona = "";
+        const q1 = answers.q1.text; const q2 = answers.q2.text; const q3 = answers.q3.text;
 
-    function calculate(q3) {
-        nextStep('loading');
-        const loadingText = document.getElementById('loading-text');
-        const messages = ["미래의 파동 스캔 중...", "잠재적 수익 분석 중...", "운명의 파트너 연결 중..."];
-        let i = 0;
-        const interval = setInterval(() => {
-            if (i < messages.length) { loadingText.innerText = messages[i++]; } 
-            else { clearInterval(interval); showFinalResult(q3); }
-        }, 1000);
-    }
+        document.getElementById('user-review').innerHTML = `최근 <span class="text-gray-900 font-bold">${answers.q1.icon} ${q1}</span> 상품의 <span class="text-gray-900 font-bold">${answers.q2.icon} ${q2}</span>에 매력을 느끼고, <span class="text-gray-900 font-bold">${answers.q3.icon} ${q3}</span> 스타일의 기록을 준비 중이시군요.`;
 
-    function showFinalResult(q3) {
-        let brand = "";
-        let persona = "";
-        const { q1, q2 } = answers;
-
-        if (q1 === 'stay') {
-            brand = (q2 === 'dom') ? "야놀자" : "아고다";
-            persona = "실속파 호캉스 전문가";
-        } else if (q1 === 'tour') {
-            brand = "클룩"; persona = "프로 여행 가이드";
+        if (q1 === '숙소') {
+            brand = (q2 === '심미성') ? "스테이앤모어" : (q2 === '경제성' ? "아고다" : "야놀자");
+            persona = "스테이 큐레이터";
+        } else if (q1 === '투어' || q1 === '유심') {
+            brand = (q2 === '경제성') ? "클룩" : "마이리얼트립";
+            persona = "익스피리언스 디렉터";
+        } else if (q1 === '항공' || q1 === '렌터카') {
+            brand = "트립닷컴"; persona = "스마트 트래블러";
         } else {
-            brand = "오늘의 집"; persona = "감성 공간 디렉터";
+            brand = "오늘의 집"; persona = "라이프스타일 에디터";
         }
 
-        document.getElementById('persona-name').innerText = "당신의 수익 페르소나: " + persona;
+        document.getElementById('persona-name').innerText = "수익 페르소나: " + persona;
         document.getElementById('final-brand').innerText = brand;
+        
+        // [수정] 너가 판단하기에 '유저가 선택한 문항 내용'과 결과의 실제 궁합도를 바탕으로 산출
+        let score = 80; // 기본 점수
+        
+        // 1. 매력 포인트(q2)와 기록 스타일(q3)의 시너지 판단
+        if (q2 === '심미성' && q3 === '비주얼') score += 12; // 감성적인 소재를 시각적으로 보여줌 (최적)
+        else if (q2 === '경제성' && q3 === '정보전달') score += 10; // 실속 정보를 상세하게 알려줌 (최적)
+        else if (q2 === '편의성' && q3 === '후기') score += 8; // 실제 이용 편의를 진솔하게 전달 (좋음)
+        else if (q2 === '경제성' && q3 === '비주얼') score += 5; // 저렴한 가격을 사진으로 증명
+        else if (q2 === '심미성' && q3 === '정보전달') score += 6; // 예쁜 곳의 정보를 꼼꼼히 기록
+        
+        // 2. 소재(q1)와 매력 포인트(q2)의 결합 적합도 판단
+        if (q1 === '유심' && q2 === '경제성') score += 5;
+        if (q1 === '항공' && q2 === '편의성') score += 4;
+        if (q1 === '숙소' && q2 === '심미성') score += 5;
+        if (q1 === '렌터카' && q2 === '편의성') score += 4;
+        
+        // 3. 미세 난수 보정 (항상 80~99 사이 유지)
+        const finalScore = Math.min(99, score + (Math.floor(Math.random() * 3)));
+        document.getElementById('match-rate').innerText = finalScore + '%';
+
         nextStep('result');
     }
 </script>
