@@ -29,7 +29,6 @@
             box-shadow: 0 40px 100px -20px rgba(60, 204, 212, 0.12);
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
-            /* 상단 버튼과 진행바 공간 확보를 위해 padding-top 상향 조정 */
             padding: 8rem 1.5rem 4rem 1.5rem; position: relative; border: 1px solid rgba(60, 204, 212, 0.08);
         }
 
@@ -62,9 +61,6 @@
         }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        .tarot-grid-3x2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; width: 100%; margin-top: 1rem; }
-        .option-grid-vertical { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; width: 100%; margin-top: 1rem; }
-
         .tarot-card {
             background: #FFFFFF; border: 2px solid #F3F4F6; border-radius: 1.25rem;
             aspect-ratio: 1 / 1.4; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -83,6 +79,13 @@
         #progress-bar { transition: width 0.4s ease; background: linear-gradient(90deg, #3CCCD4 0%, #7C3AED 100%); }
         .choice-summary { background-color: #F9FAFB; border-radius: 1.5rem; width: 100%; padding: 1.5rem; margin-top: 2rem; border: 1px dashed rgba(60, 204, 212, 0.2); text-align: center; }
 
+        /* 결과창 커스텀 스타일 */
+        .best-badge {
+            background: #3CCCD4; color: white; padding: 4px 12px; border-radius: 20px;
+            font-size: 11px; font-weight: 800; margin-bottom: 8px; display: inline-block;
+        }
+        .other-brands { color: #4B5563; font-weight: 700; font-size: 1.1rem; margin-top: -15px; margin-bottom: 30px; }
+        
         .loading-dots:after {
             content: '.';
             animation: dots 1.5s steps(5, end) infinite;
@@ -112,13 +115,13 @@
     <div id="step-0" class="step active">
         <h1 class="text-[26px] font-extrabold mb-2 leading-tight tracking-tight animated-title">나의 첫 수익 메이트 매칭</h1>
         <div class="glass-orb"></div>
-        <p class="text-gray-500 text-[15px] mb-2 leading-relaxed font-medium">당신의 소중한 경험과 기록을 분석하여<br>가장 잘 어울리는 파트너를 연결해 드릴게요.</p>
+        <p class="text-gray-500 text-[15px] mb-2 leading-relaxed font-medium">당신의 최근 이용 경험을 분석하여<br>가장 수익률이 높은 제휴사를 연결해 드릴게요.</p>
         <button onclick="startTest()" class="capsule-button">매칭 시작하기 ✨</button>
     </div>
 
     <div id="step-1" class="step">
         <h2 class="text-[20px] font-bold mb-8 text-gray-800 animated-title">최근 이용하신 내역 중<br>가장 기억에 남는 한 가지는?</h2>
-        <div class="tarot-grid-3x2">
+        <div class="grid grid-cols-3 gap-2.5 w-full mt-4">
             <div onclick="save('q1', '숙소', '🏨')" class="tarot-card"><span>🏨</span><span class="label">숙소</span></div>
             <div onclick="save('q1', '액티비티', '🎡')" class="tarot-card"><span>🎡</span><span class="label">액티비티</span></div>
             <div onclick="save('q1', '인테리어', '🛋️')" class="tarot-card"><span>🛋️</span><span class="label">인테리어</span></div>
@@ -130,7 +133,7 @@
 
     <div id="step-2" class="step">
         <h2 class="text-[20px] font-bold mb-8 text-gray-800 animated-title">내 블로그는 하루 평균<br>이 정도 방문해요!</h2>
-        <div class="option-grid-vertical">
+        <div class="grid grid-cols-3 gap-2.5 w-full mt-4">
             <div onclick="save('q2', '0~300명', '🌱')" class="tarot-card"><span>🌱</span><span class="label">0~300명</span></div>
             <div onclick="save('q2', '300~2,000명', '🌿')" class="tarot-card"><span>🌿</span><span class="label">300~2,000명</span></div>
             <div onclick="save('q2', '2,000명 이상', '🌳')" class="tarot-card"><span>🌳</span><span class="label">2,000명 이상</span></div>
@@ -139,7 +142,7 @@
 
     <div id="step-3" class="step">
         <h2 class="text-[20px] font-bold mb-8 text-gray-800 animated-title">저는 포스팅 작성에<br>이 정도 걸려요!</h2>
-        <div class="option-grid-vertical">
+        <div class="grid grid-cols-3 gap-2.5 w-full mt-4">
             <div onclick="save('q3', '30분 이내', '⚡')" class="tarot-card"><span>⚡</span><span class="label">스피드형<br>(~30분)</span></div>
             <div onclick="save('q3', '1시간 내외', '✍️')" class="tarot-card"><span>✍️</span><span class="label">집중형<br>(~1시간)</span></div>
             <div onclick="save('q3', '2시간 이상', '💎')" class="tarot-card"><span>💎</span><span class="label">정성형<br>(2시간+)</span></div>
@@ -150,13 +153,18 @@
         <div class="glass-orb scale-75"></div>
         <h2 class="text-[21px] font-bold text-gray-800 animated-title">
             나의 데이터 분석 중<span class="loading-dots"></span><br>
-            <span class="text-sm font-medium text-gray-500 mt-2 block">가장 알맞은 프로그램을 찾는 중입니다</span>
+            <span class="text-sm font-medium text-gray-500 mt-2 block">최고 수수료 제휴 프로그램을 찾는 중입니다</span>
         </h2>
     </div>
 
     <div id="step-result" class="step">
         <div class="mb-2 text-[#3CCCD4] text-[12px] font-black tracking-widest uppercase" id="persona-name"></div>
-        <h2 id="final-brand" class="text-[40px] font-black mb-8 text-gray-900 tracking-tighter leading-tight"></h2>
+        
+        <div id="recommendation-area" class="w-full">
+            <div class="best-badge">스타터 등급 최고 수수료율 지급 ✨</div>
+            <h2 id="final-brand-main" class="text-[42px] font-black mb-1 text-gray-900 tracking-tighter leading-tight"></h2>
+            <div id="other-brands-list" class="other-brands"></div>
+        </div>
         
         <div class="grid grid-cols-3 gap-3 w-full mb-8">
             <div class="bg-gray-50 py-4 rounded-2xl border border-gray-100"><p class="text-[10px] text-gray-400 font-bold mb-1 uppercase">매칭력</p><p class="font-extrabold text-[#3CCCD4] text-lg">높음</p></div>
@@ -164,7 +172,7 @@
             <div class="bg-gray-50 py-4 rounded-2xl border border-gray-100"><p class="text-[10px] text-gray-400 font-bold mb-1 uppercase">궁합도</p><p class="font-extrabold text-[#3CCCD4] text-lg"><span id="match-rate"></span></p></div>
         </div>
 
-        <button onclick="location.reload()" class="capsule-button">가이드 확인하러 가기 🔗</button>
+        <button onclick="window.open('https://3ha.featurebase.app/ko/help/collections/7417473-jehyuringkeu-saengseong-gaideu-moeum-zip', '_blank')" class="capsule-button">가이드 확인하러 가기 🔗</button>
 
         <div class="choice-summary">
             <p class="text-[11px] font-black text-[#3CCCD4] uppercase mb-2">나의 선택 리포트</p>
@@ -176,6 +184,16 @@
 <script>
     let answers = {};
     let currentStepIndex = 0;
+
+    // 제휴사 DB (스타터 수수료 기준)
+    const affiliateDB = {
+        '숙소': { main: '아고다', others: ['호텔스닷컴', '트립닷컴'], persona: '스테이 큐레이터' },
+        '액티비티': { main: '클룩', others: ['마이리얼트립'], persona: '익스피리언스 디렉터' },
+        '인테리어': { main: '오늘의집', others: [], persona: '라이프스타일 에디터' },
+        '항공권': { main: '트립닷컴', others: [], persona: '글로벌 트래블러' },
+        '유심': { main: '유심사', others: [], persona: '데이터 커넥터' },
+        '렌터카': { main: '클룩', others: ['마이리얼트립'], persona: '스마트 로드 가이드' }
+    };
 
     function startTest() { 
         document.getElementById('progress-container').classList.remove('hidden'); 
@@ -189,11 +207,8 @@
         let targetId;
         const backBtn = document.getElementById('back-button');
 
-        if (n >= 1 && n <= 3) {
-            backBtn.style.display = 'block';
-        } else {
-            backBtn.style.display = 'none';
-        }
+        if (n >= 1 && n <= 3) { backBtn.style.display = 'block'; } 
+        else { backBtn.style.display = 'none'; }
 
         if(n === 'loading') targetId = 'step-loading';
         else if(n === 'result') targetId = 'step-result';
@@ -208,10 +223,8 @@
     }
 
     function prevStep() {
-        if (currentStepIndex > 1) {
-            nextStep(currentStepIndex - 1);
-        } else if (currentStepIndex === 1) {
-            // 1단계에서 뒤로가기 시 시작화면으로
+        if (currentStepIndex > 1) { nextStep(currentStepIndex - 1); } 
+        else if (currentStepIndex === 1) {
             document.getElementById('progress-container').classList.add('hidden');
             nextStep(0);
         }
@@ -220,36 +233,31 @@
     function save(q, val, icon) {
         answers[q] = { text: val, icon: icon };
         const cur = parseInt(q.charAt(1));
-        if (cur < 3) {
-            nextStep(cur + 1);
-        } else {
-            showLoading();
-        }
+        if (cur < 3) { nextStep(cur + 1); } 
+        else { showLoading(); }
     }
 
     function showLoading() {
         nextStep('loading');
-        setTimeout(() => {
-            calculate();
-        }, 2500);
+        setTimeout(() => { calculate(); }, 2500);
     }
 
     function calculate() {
-        let brand = ""; let persona = "";
-        const q1 = answers.q1.text; const q2 = answers.q2.text; const q3 = answers.q3.text;
+        const q1 = answers.q1.text;
+        const resultData = affiliateDB[q1] || { main: '쿠팡', others: [], persona: '스마트 쇼퍼' };
 
-        document.getElementById('user-review').innerHTML = `최근 이용한 <span class="text-gray-900 font-bold">${answers.q1.icon} ${q1}</span> 경험을 바탕으로, <span class="text-gray-900 font-bold">${answers.q2.icon} ${q2}</span> 규모 블로그에 <span class="text-gray-900 font-bold">${answers.q3.icon} ${q3}</span> 스타일로 기록하는 크리에이터`;
+        // 텍스트 리포트 생성
+        document.getElementById('user-review').innerHTML = `최근 이용한 <span class="text-gray-900 font-bold">${answers.q1.icon} ${q1}</span> 경험을 바탕으로, <span class="text-gray-900 font-bold">${answers.q2.icon} ${answers.q2.text}</span> 규모 블로그에 <span class="text-gray-900 font-bold">${answers.q3.icon} ${answers.q3.text}</span> 스타일로 기록하는 크리에이터`;
 
-        if (q1 === '숙소') { brand = "아고다"; persona = "스테이 큐레이터"; }
-        else if (q1 === '액티비티') { brand = "클룩"; persona = "익스피리언스 디렉터"; }
-        else if (q1 === '인테리어') { brand = "오늘의집"; persona = "라이프스타일 에디터"; }
-        else if (q1 === '항공권') { brand = "트립닷컴"; persona = "글로벌 트래블러"; }
-        else if (q1 === '유심') { brand = "유심사"; persona = "데이터 커넥터"; }
-        else if (q1 === '렌터카') { brand = "클룩"; persona = "스마트 로드 가이드"; }
+        // 메인 브랜드와 페르소나 설정
+        document.getElementById('persona-name').innerText = "매칭 페르소나: " + resultData.persona;
+        document.getElementById('final-brand-main').innerText = resultData.main;
 
-        document.getElementById('persona-name').innerText = "매칭 페르소나: " + persona;
-        document.getElementById('final-brand').innerText = brand;
-        
+        // 추가 브랜드 설정 (최대 3개 매칭을 위해 나머지 표시)
+        const othersList = document.getElementById('other-brands-list');
+        othersList.innerText = resultData.others.length > 0 ? resultData.others.join(' · ') : '';
+
+        // 궁합도 랜덤 생성 (80~99%)
         const randomMatchRate = Math.floor(Math.random() * (99 - 80 + 1)) + 80;
         document.getElementById('match-rate').innerText = randomMatchRate + '%';
 
