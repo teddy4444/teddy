@@ -26,7 +26,7 @@
 
         /* 레이아웃 규격 최적화 */
         .main-card {
-            width: 100%; max-width: 440px; height: 720px; /* 고정 규격으로 안정감 부여 */
+            width: 100%; max-width: 440px; height: 720px; 
             background: var(--bg-white); border-radius: 3rem;
             box-shadow: 0 40px 100px -20px rgba(60, 204, 212, 0.15);
             display: flex; flex-direction: column;
@@ -34,17 +34,18 @@
             overflow: hidden;
         }
 
-        /* 상단 컨트롤 영역 여백 조정 */
         .step { 
             display: none; width: 100%; height: 100%;
-            flex-direction: column; align-items: center; justify-content: center; /* 수직 중앙 정렬 */
+            flex-direction: column; align-items: center; justify-content: center; 
             text-align: center; padding: 0 2rem;
         }
         .step.active { display: flex; animation: fadeIn 0.5s ease-out; }
         
+        /* 질문 2 위치 조정을 위한 전용 스타일 */
+        #step-2 { justify-content: flex-start; pt-24; padding-top: 7rem; }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 진행률 바 및 뒤로가기 위치 최적화 */
         .back-btn {
             position: absolute; top: 2rem; left: 2rem;
             color: #94A3B8; cursor: pointer; transition: all 0.2s ease;
@@ -95,7 +96,7 @@
         }
 
         #progress-bar { transition: width 0.4s ease; background: linear-gradient(90deg, #3CCCD4 0%, #7C3AED 100%); }
-        .choice-summary { background-color: #F9FAFB; border-radius: 1.25rem; width: 100%; padding: 1.25rem; margin-top: 1.5rem; border: 1px dashed rgba(60, 204, 212, 0.2); }
+        .choice-summary { background-color: #F9FAFB; border-radius: 1.25rem; width: 100%; padding: 1.25rem; margin-top: 1rem; border: 1px dashed rgba(60, 204, 212, 0.2); }
 
         .loading-dots:after { content: '.'; animation: dots 1.5s steps(5, end) infinite; }
         @keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60% { content: '...'; } 80%, 100% { content: ''; } }
@@ -121,10 +122,11 @@
     </div>
 
     <div id="step-0" class="step active">
-        <h1 class="text-[24px] font-extrabold mb-1 animated-title">나의 첫 수익 메이트 매칭</h1>
-        <div class="glass-orb"></div>
-        <p class="text-gray-500 text-[14px] leading-relaxed font-medium px-4">지금 내가 사용하기 딱 좋은<br>제휴링크를 찾아드릴게요.</p>
-        <button onclick="startTest()" class="capsule-button max-w-[280px]">시작하기 ✨</button>
+        <div class="flex flex-col items-center py-4"> <h1 class="text-[24px] font-extrabold mb-1 animated-title">나의 첫 수익 메이트 매칭</h1>
+            <div class="glass-orb"></div>
+            <p class="text-gray-500 text-[14px] leading-relaxed font-medium px-4 mb-2">지금 내가 사용하기 딱 좋은<br>제휴링크를 찾아드릴게요.</p>
+            <button onclick="startTest()" class="capsule-button max-w-[280px]">시작하기 ✨</button>
+        </div>
     </div>
 
     <div id="step-1" class="step">
@@ -167,31 +169,32 @@
     </div>
 
     <div id="step-result" class="step">
-        <div class="w-full">
-            <div class="best-badge">스타터 등급 최고 수수료율 지급 ✨</div>
-            <h2 id="final-brand-main" class="text-[48px] font-black mb-8 text-gray-900 tracking-tighter leading-tight"></h2>
-        </div>
-        
-        <div class="grid grid-cols-3 gap-2.5 w-full">
-            <div class="bg-gray-50 py-3.5 rounded-xl border border-gray-100">
-                <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수수료율</p>
-                <p id="result-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
+        <div class="flex flex-col items-center w-full py-2"> <div class="w-full">
+                <div class="best-badge">스타터 등급 최고 수수료율 지급 ✨</div>
+                <h2 id="final-brand-main" class="text-[48px] font-black mb-4 text-gray-900 tracking-tighter leading-tight"></h2>
             </div>
-            <div class="bg-gray-50 py-3.5 rounded-xl border border-gray-100">
-                <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수익성</p>
-                <p class="font-extrabold text-[#3CCCD4] text-base">최상</p>
+            
+            <div class="grid grid-cols-3 gap-2.5 w-full mb-2">
+                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
+                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수수료율</p>
+                    <p id="result-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
+                </div>
+                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
+                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수익성</p>
+                    <p class="font-extrabold text-[#3CCCD4] text-base">최상</p>
+                </div>
+                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
+                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">신뢰도</p>
+                    <p id="match-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
+                </div>
             </div>
-            <div class="bg-gray-50 py-3.5 rounded-xl border border-gray-100">
-                <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">신뢰도</p>
-                <p id="match-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
+            
+            <button onclick="location.reload()" class="capsule-button max-w-[300px] mb-2">제휴링크 생성하러 가기 🔗</button>
+            
+            <div class="choice-summary">
+                <p class="text-[10px] font-black text-[#3CCCD4] uppercase mb-1.5">나의 선택 리포트</p>
+                <p id="user-review" class="text-[12px] font-semibold text-gray-600 leading-relaxed px-1"></p>
             </div>
-        </div>
-        
-        <button onclick="location.reload()" class="capsule-button max-w-[300px]">제휴링크 생성하러 가기 🔗</button>
-        
-        <div class="choice-summary">
-            <p class="text-[10px] font-black text-[#3CCCD4] uppercase mb-1.5">나의 선택 리포트</p>
-            <p id="user-review" class="text-[12px] font-semibold text-gray-600 leading-relaxed px-1"></p>
         </div>
     </div>
 </div>
@@ -281,7 +284,6 @@
         document.getElementById('final-brand-main').innerText = result.brand;
         document.getElementById('result-rate').innerText = result.rate;
         
-        /* 제안된 정체성 부여형 리포트 문구 적용 */
         const selectedTopic = answers.q1.text;
         const selectedProduct = answers.q2.text;
         const selectedVisitors = answers.q3.text;
