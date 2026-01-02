@@ -99,13 +99,18 @@
             margin-top: 0; border: 1px dashed rgba(60, 204, 212, 0.2); 
         }
 
-        /* [수정] 로고 이미지 크기 및 둥둥 뜨는 애니메이션 적용 */
         .brand-logo-img {
             max-height: 200px; 
             object-fit: contain;
             margin: 0 auto;
-            animation: float 4s infinite ease-in-out; /* 위아래로 움직이는 효과 추가 */
+            animation: float 4s infinite ease-in-out; 
         }
+
+        @keyframes btn-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+        .btn-incentive { animation: btn-pulse 1.5s infinite ease-in-out; }
 
         .loading-dots:after { content: '.'; animation: dots 1.5s steps(5, end) infinite; }
         @keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60% { content: '...'; } 80%, 100% { content: ''; } }
@@ -179,7 +184,7 @@
 
     <div id="step-result" class="step">
         <div class="flex flex-col items-center w-full py-2"> 
-            <div class="w-full mb-2"> 
+            <div class="w-full mb-0"> 
                 <div class="best-badge">스타터 등급 최고 수수료율 지급 ✨</div>
                 <h2 id="final-brand-main" class="text-[48px] font-black mb-2 text-gray-900 tracking-tighter leading-tight"></h2>
                 <div class="mb-0">
@@ -187,9 +192,7 @@
                 </div>
             </div>
             
-            <button onclick="location.reload()" class="capsule-button max-w-[300px] mb-4">제휴링크 생성하러 가기 🔗</button>
-            
-            <div class="grid grid-cols-3 gap-2.5 w-full mb-4">
+            <div class="grid grid-cols-3 gap-2.5 w-full mb-4 mt-4">
                 <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
                     <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수수료율</p>
                     <p id="result-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
@@ -204,10 +207,12 @@
                 </div>
             </div>
             
-            <div class="choice-summary">
+            <div class="choice-summary mb-4">
                 <p class="text-[10px] font-black text-[#3CCCD4] uppercase mb-1.5">나의 선택 리포트</p>
                 <p id="user-review" class="text-[12px] font-semibold text-gray-600 leading-relaxed px-1"></p>
             </div>
+
+            <button onclick="location.reload()" class="capsule-button max-w-[300px] mb-4 btn-incentive">제휴링크 생성하러 가기 🔗</button>
         </div>
     </div>
 </div>
