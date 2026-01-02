@@ -24,6 +24,7 @@
             padding: 1rem;
         }
 
+        /* 레이아웃 규격 최적화 */
         .main-card {
             width: 100%; max-width: 440px; height: 720px; 
             background: var(--bg-white); border-radius: 3rem;
@@ -40,7 +41,8 @@
         }
         .step.active { display: flex; animation: fadeIn 0.5s ease-out; }
         
-        #step-2 { justify-content: flex-start; pt-24; padding-top: 11rem; }
+        /* 질문 2 위치 조정 */
+        #step-2 { justify-content: flex-start; padding-top: 11rem; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -49,6 +51,7 @@
             color: #94A3B8; cursor: pointer; transition: all 0.2s ease;
             display: none; z-index: 50;
         }
+        .back-btn:hover { color: var(--point-color); transform: translateX(-3px); }
         
         #progress-container {
             position: absolute; top: 5.5rem; left: 0; width: 100%; padding: 0 2.5rem;
@@ -93,9 +96,13 @@
         }
 
         #progress-bar { transition: width 0.4s ease; background: linear-gradient(90deg, #3CCCD4 0%, #7C3AED 100%); }
-        .choice-summary { background-color: #F9FAFB; border-radius: 1.25rem; width: 100%; padding: 1.25rem; margin-top: 0; border: 1px dashed rgba(60, 204, 212, 0.2); }
+        
+        /* 리포트 박스 상단 마진 제거하여 간격 통일 */
+        .choice-summary { 
+            background-color: #F9FAFB; border-radius: 1.25rem; width: 100%; padding: 1.25rem; 
+            margin-top: 0; border: 1px dashed rgba(60, 204, 212, 0.2); 
+        }
 
-        /* 로고 이미지 스타일링 */
         .brand-logo-img {
             max-height: 40px;
             object-fit: contain;
@@ -126,7 +133,8 @@
     </div>
 
     <div id="step-0" class="step active">
-        <div class="flex flex-col items-center py-4"> <h1 class="text-[26px] font-extrabold mb-16 animated-title">나의 첫 수익 메이트 매칭</h1>
+        <div class="flex flex-col items-center py-4"> 
+            <h1 class="text-[26px] font-extrabold mb-16 animated-title">나의 첫 수익 메이트 매칭</h1>
             <div class="glass-orb"></div>
             <p class="text-gray-500 text-[14px] leading-relaxed font-medium px-4 mb-6">지금 내가 사용하기 딱 좋은<br>제휴링크를 찾아드릴게요.</p>
             <button onclick="startTest()" class="capsule-button max-w-[280px]">시작하기 ✨</button>
@@ -223,9 +231,9 @@
         ]
     };
 
-    // [수정] logo 경로 필드 추가
+    // [수정] Agoda 로고 부분 따옴표 오류 수정 완료
     const affiliateMapping = {
-        '숙소': { brand: '아고다', rate: '최대 2.4%', logo: 'https://postfiles.pstatic.net/MjAyNjAxMDJfMTgy/MDAxNzY3MzMzMTkwMjgz.Vur8XmYea8X-sQf-JuIK3dqYK-rjXz_1ZJmxoysJmlMg.TM9V8qJzWRfWbIh21ZeMoPGIgdtok20fAQxVk6kLCeEg.PNG/Group_6905.png?type=w773 },
+        '숙소': { brand: '아고다', rate: '최대 2.4%', logo: 'https://postfiles.pstatic.net/MjAyNjAxMDJfMTgy/MDAxNzY3MzMzMTkwMjgz.Vur8XmYea8X-sQf-JuIK3dqYK-rjXz_1ZJmxoysJmlMg.TM9V8qJzWRfWbIh21ZeMoPGIgdtok20fAQxVk6kLCeEg.PNG/Group_6905.png?type=w773' },
         '항공권': { brand: '트립닷컴', rate: '최대 0.9%', logo: 'https://postfiles.pstatic.net/MjAyNjAxMDJfNzcg/MDAxNzY3MzMzMTkwMzAw.w9n0qy5rMwmfXib-38DCrUErHwqewGYtfq0TjiBf6Eog.21XMgQLDtAudp5kHSvTfX-VaDbWCVxpQvTnJTLyumXUg.PNG/Group_6688.png?type=w773' },
         'e-sim': { brand: '유심사', rate: '최대 6%', logo: 'https://postfiles.pstatic.net/MjAyNjAxMDJfMjIw/MDAxNzY3MzMzMTkwMzAw.Osmclwhv-ty9Lcfma8ktm_XtS9gomVLsCbEfmP43G0Ug.bJiYKKewTbT0j3EdfN8uAzVIufvZBY2Qpn0dCgacEM4g.PNG/Group_6909.png?type=w773' },
         '액티비티/투어': { brand: '마이리얼트립', rate: '최대 6%', logo: 'https://postfiles.pstatic.net/MjAyNjAxMDJfMTYx/MDAxNzY3MzMzMTkwMjg3.z0XdSJ5sxP_8ZNaZizgBbus7vpZTf9FM41GJzK8LS28g.LcGLrJj255dyI7SEGqetdfkgxwbxaqh4cFfn56pMyIMg.PNG/Group_6907.png?type=w773' },
@@ -292,8 +300,6 @@
         const result = affiliateMapping[answers.q2.text];
         document.getElementById('final-brand-main').innerText = result.brand;
         document.getElementById('result-rate').innerText = result.rate;
-        
-        // [추가] 로고 이미지 src 업데이트
         document.getElementById('final-brand-logo').src = result.logo;
         
         const selectedTopic = answers.q1.text;
