@@ -42,7 +42,7 @@
         .step.active { display: flex; animation: fadeIn 0.5s ease-out; }
         
         /* 질문 2 위치 조정을 위한 전용 스타일 */
-        #step-2 { justify-content: flex-start; pt-24; padding-top: 7rem; }
+        #step-2 { justify-content: flex-start; pt-24; padding-top: 11rem; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -130,9 +130,9 @@
     </div>
 
     <div id="step-1" class="step">
-        <h2 class="text-[19px] font-bold mb-8 text-gray-800 leading-snug">
+        <h2 class="text-[24px] font-bold mb-8 text-gray-800 leading-snug">
             지금 바로 포스팅할 수 있는 주제는?<br>
-            <span class="text-[13px] text-gray-400 font-medium">(또는 기존 포스팅 주제는?)</span>
+            <span class="text-[15px] text-gray-400 font-medium">(또는 기존 포스팅 주제는?)</span>
         </h2>
         <div class="flex flex-col gap-3 w-full max-w-[320px]">
             <div onclick="save('q1', '여행 포스팅', '✈️')" class="tarot-card">
@@ -147,12 +147,12 @@
     </div>
 
     <div id="step-2" class="step">
-        <h2 class="text-[19px] font-bold mb-8 text-gray-800">내가 잘 이용했던 상품은?</h2>
+        <h2 class="text-[24px] font-bold mb-8 text-gray-800">내가 잘 이용했던 상품은?</h2>
         <div id="q2-container" class="grid grid-cols-2 gap-3 w-full"></div>
     </div>
 
     <div id="step-3" class="step">
-        <h2 class="text-[19px] font-bold mb-8 text-gray-800">내 블로그는 하루 평균<br>이 정도 방문해요!</h2>
+        <h2 class="text-[24px] font-bold mb-8 text-gray-800">내 블로그는 하루 평균<br>이 정도 방문해요!</h2>
         <div class="flex flex-col gap-2.5 w-full max-w-[280px]">
             <div onclick="save('q3', '0~300명', '🌱')" class="tarot-card"><span>🌱</span><span class="label">0~300명</span></div>
             <div onclick="save('q3', '300~2,000명', '🌿')" class="tarot-card"><span>🌿</span><span class="label">300~2,000명</span></div>
