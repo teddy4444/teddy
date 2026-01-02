@@ -99,10 +99,12 @@
             margin-top: 0; border: 1px dashed rgba(60, 204, 212, 0.2); 
         }
 
+        /* [수정] 로고 이미지 크기 및 둥둥 뜨는 애니메이션 적용 */
         .brand-logo-img {
             max-height: 200px; 
             object-fit: contain;
             margin: 0 auto;
+            animation: float 4s infinite ease-in-out; /* 위아래로 움직이는 효과 추가 */
         }
 
         .loading-dots:after { content: '.'; animation: dots 1.5s steps(5, end) infinite; }
@@ -299,7 +301,6 @@
         const selectedProduct = answers.q2.text;
         const selectedVisitors = answers.q3.text;
         
-        // 수정 사항: 문구를 3줄로 고정하여 변수 제외 나머지 말을 동일하게 설정
         document.getElementById('user-review').innerHTML = 
             `최근에 <span class="text-gray-900 font-bold">${answers.q2.icon} ${selectedProduct}</span>을(를) 이용하셨군요!<br>` +
             `지금 내 블로그 규모 <span class="text-gray-900 font-bold">${selectedVisitors}</span>에<br>` +
