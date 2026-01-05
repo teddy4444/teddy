@@ -1,342 +1,344 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나의 첫 수익 메이트 매칭</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap');
-        
-        :root {
-            --point-color: #3CCCD4; 
-            --point-secondary: #6366F1;
-            --bg-white: #FFFFFF;
-            --btn-bg: rgba(147, 51, 234, 0.1);
-            --btn-text: #7C3AED;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 첫 수익 메이트 매칭</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap');
+        
+        :root {
+            --point-color: #3CCCD4; 
+            --point-secondary: #6366F1;
+            --bg-white: #FFFFFF;
+            --btn-bg: rgba(147, 51, 234, 0.1);
+            --btn-text: #7C3AED;
+        }
 
-        body { 
-            font-family: 'Pretendard', sans-serif; 
-            background-color: #F9FAFB; 
-            color: #1F2937;
-            display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0;
-            padding: 1rem;
-        }
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background-color: #F9FAFB; 
+            color: #1F2937;
+            display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0;
+            padding: 1rem;
+        }
 
-        .main-card {
-            width: 100%; max-width: 440px; height: 720px; 
-            background: var(--bg-white); border-radius: 3rem;
-            box-shadow: 0 40px 100px -20px rgba(60, 204, 212, 0.15);
-            display: flex; flex-direction: column;
-            position: relative; border: 1px solid rgba(60, 204, 212, 0.1);
-            overflow: hidden;
-        }
+        .main-card {
+            width: 100%; max-width: 440px; height: 720px; 
+            background: var(--bg-white); border-radius: 3rem;
+            box-shadow: 0 40px 100px -20px rgba(60, 204, 212, 0.15);
+            display: flex; flex-direction: column;
+            position: relative; border: 1px solid rgba(60, 204, 212, 0.1);
+            overflow: hidden;
+        }
 
-        .step { 
-            display: none; width: 100%; height: 100%;
-            flex-direction: column; align-items: center; justify-content: center; 
-            text-align: center; padding: 0 2rem;
-        }
-        .step.active { display: flex; animation: fadeIn 0.5s ease-out; }
-        
-        #step-2 { justify-content: flex-start; pt-24; padding-top: 11rem; }
+        .step { 
+            display: none; width: 100%; height: 100%;
+            flex-direction: column; align-items: center; justify-content: center; 
+            text-align: center; padding: 0 2rem;
+        }
+        .step.active { display: flex; animation: fadeIn 0.5s ease-out; }
+        
+        #step-2 { justify-content: flex-start; pt-24; padding-top: 11rem; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .back-btn {
-            position: absolute; top: 2rem; left: 2rem;
-            color: #94A3B8; cursor: pointer; transition: all 0.2s ease;
-            display: none; z-index: 50;
-        }
-        
-        #progress-container {
-            position: absolute; top: 5.5rem; left: 0; width: 100%; padding: 0 2.5rem;
-            z-index: 40;
-        }
+        .back-btn {
+            position: absolute; top: 2rem; left: 2rem;
+            color: #94A3B8; cursor: pointer; transition: all 0.2s ease;
+            display: none; z-index: 50;
+        }
+        
+        #progress-container {
+            position: absolute; top: 5.5rem; left: 0; width: 100%; padding: 0 2.5rem;
+            z-index: 40;
+        }
 
-        .animated-title {
-            background: linear-gradient(90deg, #3CCCD4, #6366F1, #3CCCD4);
-            background-size: 200% auto;
-            color: transparent; -webkit-background-clip: text; background-clip: text;
-            animation: gradientMove 4s linear infinite; display: inline-block;
-        }
-        @keyframes gradientMove { to { background-position: 200% center; } }
+        .animated-title {
+            background: linear-gradient(90deg, #3CCCD4, #6366F1, #3CCCD4);
+            background-size: 200% auto;
+            color: transparent; -webkit-background-clip: text; background-clip: text;
+            animation: gradientMove 4s linear infinite; display: inline-block;
+        }
+        @keyframes gradientMove { to { background-position: 200% center; } }
 
-        .glass-orb {
-            width: 160px; height: 160px; border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 1) 0%, rgba(60, 204, 212, 0.3) 30%, rgba(147, 51, 234, 0.2) 60%, rgba(59, 130, 246, 0.1) 100%);
-            box-shadow: inset -10px -10px 30px rgba(60, 204, 212, 0.2), inset 10px 10px 30px rgba(255, 255, 255, 0.8), 0 20px 40px rgba(60, 204, 212, 0.1);
-            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-            margin-bottom: 2rem; animation: float 4s infinite ease-in-out;
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .glass-orb {
+            width: 160px; height: 160px; border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 1) 0%, rgba(60, 204, 212, 0.3) 30%, rgba(147, 51, 234, 0.2) 60%, rgba(59, 130, 246, 0.1) 100%);
+            box-shadow: inset -10px -10px 30px rgba(60, 204, 212, 0.2), inset 10px 10px 30px rgba(255, 255, 255, 0.8), 0 20px 40px rgba(60, 204, 212, 0.1);
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            margin-bottom: 2rem; animation: float 4s infinite ease-in-out;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-        .tarot-card {
-            background: #FFFFFF; border: 2px solid #F3F4F6; border-radius: 1.25rem;
-            width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 1.25rem; cursor: pointer; transition: all 0.2s ease;
-        }
-        .tarot-card:hover { border-color: var(--point-color); background: #f0fdfe; transform: translateY(-3px); }
-        .tarot-card span.emoji { font-size: 1.8rem; margin-bottom: 0.4rem; }
-        .tarot-card span.label { font-size: 0.9rem; font-weight: 800; color: #4B5563; }
+        .tarot-card {
+            background: #FFFFFF; border: 2px solid #F3F4F6; border-radius: 1.25rem;
+            width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 1.25rem; cursor: pointer; transition: all 0.2s ease;
+        }
+        .tarot-card:hover { border-color: var(--point-color); background: #f0fdfe; transform: translateY(-3px); }
+        .tarot-card span.emoji { font-size: 1.8rem; margin-bottom: 0.4rem; }
+        .tarot-card span.label { font-size: 0.9rem; font-weight: 800; color: #4B5563; }
 
-        .capsule-button {
-            background-color: var(--btn-bg); color: var(--btn-text);
-            border-radius: 9999px; width: 100%; padding: 1rem;
-            font-weight: 700; font-size: 1.05rem; transition: all 0.2s ease; margin-top: 1.25rem;
-        }
+        .capsule-button {
+            background-color: var(--btn-bg); color: var(--btn-text);
+            border-radius: 9999px; width: 100%; padding: 1rem;
+            font-weight: 700; font-size: 1.05rem; transition: all 0.2s ease; margin-top: 1.25rem;
+        }
 
-        .best-badge {
-            background: #3CCCD4; color: white; padding: 4px 12px; border-radius: 20px;
-            font-size: 11px; font-weight: 800; margin-bottom: 0.75rem; display: inline-block;
-        }
+        .best-badge {
+            background: #3CCCD4; color: white; padding: 4px 12px; border-radius: 20px;
+            font-size: 11px; font-weight: 800; margin-bottom: 0.75rem; display: inline-block;
+        }
 
-        #progress-bar { transition: width 0.4s ease; background: linear-gradient(90deg, #3CCCD4 0%, #7C3AED 100%); }
-        
-        .choice-summary { 
-            width: 100%; padding: 1.25rem; 
-            margin-top: 0; 
-        }
+        #progress-bar { transition: width 0.4s ease; background: linear-gradient(90deg, #3CCCD4 0%, #7C3AED 100%); }
+        
+        .choice-summary { 
+            width: 100%; padding: 1.25rem; 
+            margin-top: 0; 
+        }
 
-        .brand-logo-img {
-            max-height: 200px; 
-            object-fit: contain;
-            margin: 0 auto;
-            animation: float 4s infinite ease-in-out; 
-        }
+        .brand-logo-img {
+            max-height: 200px; 
+            object-fit: contain;
+            margin: 0 auto;
+            animation: float 4s infinite ease-in-out; 
+        }
 
-        @keyframes btn-glow {
-            0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
-            70% { box-shadow: 0 0 0 12px rgba(124, 58, 237, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
-        }
-        .btn-incentive { animation: btn-glow 2s infinite; }
+        @keyframes btn-glow {
+            0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(124, 58, 237, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+        }
+        .btn-incentive { animation: btn-glow 2s infinite; }
 
-        .loading-dots:after { content: '.'; animation: dots 1.5s steps(5, end) infinite; }
-        @keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60% { content: '...'; } 80%, 100% { content: ''; } }
-    </style>
+        .loading-dots:after { content: '.'; animation: dots 1.5s steps(5, end) infinite; }
+        @keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60% { content: '...'; } 80%, 100% { content: ''; } }
+    </style>
 </head>
 <body>
 
 <div id="app" class="main-card">
-    <div id="back-button" class="back-btn" onclick="prevStep()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
-        </svg>
-    </div>
+    <div id="back-button" class="back-btn" onclick="prevStep()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+        </svg>
+    </div>
 
-    <div id="progress-container" class="hidden">
-        <div class="flex justify-between items-center mb-1.5 px-0.5">
-            <span class="text-[10px] font-bold text-[#3CCCD4] uppercase tracking-widest">매칭 진행률</span>
-            <span id="percent-text" class="text-[10px] font-bold text-[#3CCCD4]">0%</span>
-        </div>
-        <div class="w-full bg-gray-100 h-1 rounded-full overflow-hidden">
-            <div id="progress-bar" class="h-full w-0"></div>
-        </div>
-    </div>
+    <div id="progress-container" class="hidden">
+        <div class="flex justify-between items-center mb-1.5 px-0.5">
+            <span class="text-[10px] font-bold text-[#3CCCD4] uppercase tracking-widest">매칭 진행률</span>
+            <span id="percent-text" class="text-[10px] font-bold text-[#3CCCD4]">0%</span>
+        </div>
+        <div class="w-full bg-gray-100 h-1 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full w-0"></div>
+        </div>
+    </div>
 
-    <div id="step-0" class="step active">
-        <div class="flex flex-col items-center py-4"> <h1 class="text-[26px] font-black mb-16 animated-title">나의 첫 수익 메이트 매칭</h1>
-            <div class="glass-orb"></div>
-            <p class="text-gray-500 text-[14px] leading-relaxed font-medium px-4 mb-6">지금 내가 사용하기 딱 좋은<br>제휴링크를 찾아드릴게요.</p>
-            <button onclick="startTest()" class="capsule-button max-w-[280px]">시작하기 ✨</button>
-        </div>
-    </div>
+    <div id="step-0" class="step active">
+        <div class="flex flex-col items-center py-4">
+            <img src="https://github.com/3hatdy/my-assets/blob/main/%E1%84%89%E1%85%A6%E1%84%89%E1%85%B5%E1%84%80%E1%85%A1%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9%20%E1%84%82%E1%85%AE%E1%84%81%E1%85%B5.png?raw=true" alt="세시간전 로고" class="h-8 mb-6">
+            <h1 class="text-[26px] font-black mb-16 animated-title">나의 첫 수익 메이트 매칭</h1>
+            <div class="glass-orb"></div>
+            <p class="text-gray-500 text-[14px] leading-relaxed font-medium px-4 mb-6">지금 내가 사용하기 딱 좋은<br>제휴링크를 찾아드릴게요.</p>
+            <button onclick="startTest()" class="capsule-button max-w-[280px]">시작하기 ✨</button>
+        </div>
+    </div>
 
-    <div id="step-1" class="step">
-        <h2 class="text-[22px] font-bold mb-8 text-gray-800 leading-snug">
-            지금 바로 포스팅한다면 주제는?<br>
-            <span class="text-[16px] text-gray-400 font-medium">(또는 기존 포스팅 주제는?)</span>
-        </h2>
-        <div class="flex flex-col gap-3 w-full max-w-[320px]">
-            <div onclick="save('q1', '여행 포스팅', '✈️')" class="tarot-card">
-                <span class="emoji">✈️</span>
-                <span class="label">설렘이 가득했던 여행과 휴식</span>
-            </div>
-            <div onclick="save('q1', '일상·리빙 포스팅', '🏠')" class="tarot-card">
-                <span class="emoji">🏠</span>
-                <span class="label">나의 취향이 담긴 공간과 일상</span>
-            </div>
-        </div>
-    </div>
+    <div id="step-1" class="step">
+        <h2 class="text-[22px] font-bold mb-8 text-gray-800 leading-snug">
+            지금 바로 포스팅한다면 주제는?<br>
+            <span class="text-[16px] text-gray-400 font-medium">(또는 기존 포스팅 주제는?)</span>
+        </h2>
+        <div class="flex flex-col gap-3 w-full max-w-[320px]">
+            <div onclick="save('q1', '여행 포스팅', '✈️')" class="tarot-card">
+                <span class="emoji">✈️</span>
+                <span class="label">설렘이 가득했던 여행과 휴식</span>
+            </div>
+            <div onclick="save('q1', '일상·리빙 포스팅', '🏠')" class="tarot-card">
+                <span class="emoji">🏠</span>
+                <span class="label">나의 취향이 담긴 공간과 일상</span>
+            </div>
+        </div>
+    </div>
 
-    <div id="step-2" class="step">
-        <h2 class="text-[22px] font-bold mb-8 text-gray-800">내가 최근에 구매한 상품은?</h2>
-        <div id="q2-container" class="grid grid-cols-2 gap-3 w-full"></div>
-    </div>
+    <div id="step-2" class="step">
+        <h2 class="text-[22px] font-bold mb-8 text-gray-800">내가 최근에 구매한 상품은?</h2>
+        <div id="q2-container" class="grid grid-cols-2 gap-3 w-full"></div>
+    </div>
 
-    <div id="step-3" class="step">
-        <h2 class="text-[22px] font-bold mb-8 text-gray-800">내 블로그는 하루 평균<br>이 정도 방문해요!</h2>
-        <div class="flex flex-col gap-2.5 w-full max-w-[280px]">
-            <div onclick="save('q3', '0~300명', '🌱')" class="tarot-card"><span>🌱</span><span class="label">0~300명</span></div>
-            <div onclick="save('q3', '300~2,000명', '🌿')" class="tarot-card"><span>🌿</span><span class="label">300~2,000명</span></div>
-            <div onclick="save('q3', '2,000명 이상', '🌳')" class="tarot-card"><span>🌳</span><span class="label">2,000명 이상</span></div>
-        </div>
-    </div>
+    <div id="step-3" class="step">
+        <h2 class="text-[22px] font-bold mb-8 text-gray-800">내 블로그는 하루 평균<br>이 정도 방문해요!</h2>
+        <div class="flex flex-col gap-2.5 w-full max-w-[280px]">
+            <div onclick="save('q3', '0~300명', '🌱')" class="tarot-card"><span>🌱</span><span class="label">0~300명</span></div>
+            <div onclick="save('q3', '300~2,000명', '🌿')" class="tarot-card"><span>🌿</span><span class="label">300~2,000명</span></div>
+            <div onclick="save('q3', '2,000명 이상', '🌳')" class="tarot-card"><span>🌳</span><span class="label">2,000명 이상</span></div>
+        </div>
+    </div>
 
-    <div id="step-loading" class="step">
-        <div class="glass-orb scale-75 mb-4"></div>
-        <h2 class="text-[20px] font-bold text-gray-800 animated-title">
-            데이터 분석 중<span class="loading-dots"></span><br>
-            <span class="text-[13px] font-medium text-gray-500 mt-2 block">가장 알맞은 제휴링크를 찾는 중입니다</span>
-        </h2>
-    </div>
+    <div id="step-loading" class="step">
+        <div class="glass-orb scale-75 mb-4"></div>
+        <h2 class="text-[20px] font-bold text-gray-800 animated-title">
+            데이터 분석 중<span class="loading-dots"></span><br>
+            <span class="text-[13px] font-medium text-gray-500 mt-2 block">가장 알맞은 제휴링크를 찾는 중입니다</span>
+        </h2>
+    </div>
 
-    <div id="step-result" class="step">
-        <div class="flex flex-col items-center w-full py-2"> 
-            <div class="w-full mb-0"> 
-                <div class="best-badge">스타터 등급 최고 수수료율 지급 ✨</div>
-                <h2 id="final-brand-main" class="text-[48px] font-black mb-2 text-gray-900 tracking-tighter leading-tight"></h2>
-                <div class="mb-0">
-                    <img id="final-brand-logo" src="" alt="제휴사 로고" class="brand-logo-img">
-                </div>
-            </div>
-            
-            <div class="choice-summary mb-2 mt-0">
-                <p class="text-[16px] font-black text-[#3CCCD4] uppercase mb-1.5">나의 선택 리포트</p>
-                <p id="user-review" class="text-[14px] font-semibold text-gray-600 leading-relaxed px-1"></p>
-            </div>
+    <div id="step-result" class="step">
+        <div class="flex flex-col items-center w-full py-2"> 
+            <div class="w-full mb-0"> 
+                <div class="best-badge">스타터 등급 최고 수수료율 지급 ✨</div>
+                <h2 id="final-brand-main" class="text-[48px] font-black mb-2 text-gray-900 tracking-tighter leading-tight"></h2>
+                <div class="mb-0">
+                    <img id="final-brand-logo" src="" alt="제휴사 로고" class="brand-logo-img">
+                </div>
+            </div>
+            
+            <div class="choice-summary mb-2 mt-0">
+                <p class="text-[16px] font-black text-[#3CCCD4] uppercase mb-1.5">나의 선택 리포트</p>
+                <p id="user-review" class="text-[14px] font-semibold text-gray-600 leading-relaxed px-1"></p>
+            </div>
 
-            <div class="grid grid-cols-3 gap-2.5 w-full mb-2">
-                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
-                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수수료율</p>
-                    <p id="result-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
-                </div>
-                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
-                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수익성</p>
-                    <p class="font-extrabold text-[#3CCCD4] text-base">최상</p>
-                </div>
-                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
-                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">신뢰도</p>
-                    <p id="match-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
-                </div>
-            </div>
+            <div class="grid grid-cols-3 gap-2.5 w-full mb-2">
+                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
+                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수수료율</p>
+                    <p id="result-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
+                </div>
+                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
+                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수익성</p>
+                    <p class="font-extrabold text-[#3CCCD4] text-base">최상</p>
+                </div>
+                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
+                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">신뢰도</p>
+                    <p id="match-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
+                </div>
+            </div>
 
-            <button id="result-link-btn" onclick="goToLandingPage()" class="capsule-button max-w-[300px] mb-4 btn-incentive">제휴링크 생성하러 가기 🔗</button>
-        </div>
-    </div>
+            <button id="result-link-btn" onclick="goToLandingPage()" class="capsule-button max-w-[300px] mb-4 btn-incentive">제휴링크 생성하러 가기 🔗</button>
+        </div>
+    </div>
 </div>
 
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const aid = urlParams.get('aid') || 'direct';
+    const urlParams = new URLSearchParams(window.location.search);
+    const aid = urlParams.get('aid') || 'direct';
 
-    let answers = {};
-    let currentStepIndex = 0;
-    let finalLandingUrl = "";
+    let answers = {};
+    let currentStepIndex = 0;
+    let finalLandingUrl = "";
 
-    const q2Options = {
-        '여행 포스팅': [
-            { text: '숙소', icon: '🏨' }, { text: '항공권', icon: '✈️' },
-            { text: 'e-sim', icon: '📱' }, { text: '액티비티/투어', icon: '🎡' },
-            { text: '렌터카', icon: '🚗' }
-        ],
-        '일상·리빙 포스팅': [
-            { text: '소품', icon: '🕯️' }, { text: '가구', icon: '🛋️' },
-            { text: '가전', icon: '📺' }, { text: '인테리어', icon: '🖼️' }
-        ]
-    };
+    const q2Options = {
+        '여행 포스팅': [
+            { text: '숙소', icon: '🏨' }, { text: '항공권', icon: '✈️' },
+            { text: 'e-sim', icon: '📱' }, { text: '액티비티/투어', icon: '🎡' },
+            { text: '렌터카', icon: '🚗' }
+        ],
+        '일상·리빙 포스팅': [
+            { text: '소품', icon: '🕯️' }, { text: '가구', icon: '🛋️' },
+            { text: '가전', icon: '📺' }, { text: '인테리어', icon: '🖼️' }
+        ]
+    };
 
-    const affiliateMapping = {
-        '숙소': { brand: '아고다', rate: '최대 2.4%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206905.png', url: 'https://3hoursahead.com/studio/affiliate/programs/agoda' },
-        '항공권': { brand: '트립닷컴', rate: '최대 0.9%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206688.png', url: 'https://3hoursahead.com/studio/affiliate/programs/tripcom' },
-        'e-sim': { brand: '유심사', rate: '최대 6%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206909.png', url: 'https://3hoursahead.com/studio/affiliate/programs/usimsa' },
-        '액티비티/투어': { brand: '마이리얼트립', rate: '최대 6%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206907.png', url: 'https://3hoursahead.com/studio/affiliate/programs/myrealtrip' },
-        '렌터카': { brand: '클룩', rate: '최대 3%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206696.png', url: 'https://3hoursahead.com/studio/affiliate/programs/klook' },
-        '소품': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
-        '가구': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
-        '가전': { brand: '오늘의집', rate: '2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
-        '인테리어': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' }
-    };
+    const affiliateMapping = {
+        '숙소': { brand: '아고다', rate: '최대 2.4%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206905.png', url: 'https://3hoursahead.com/studio/affiliate/programs/agoda' },
+        '항공권': { brand: '트립닷컴', rate: '최대 0.9%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206688.png', url: 'https://3hoursahead.com/studio/affiliate/programs/tripcom' },
+        'e-sim': { brand: '유심사', rate: '최대 6%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206909.png', url: 'https://3hoursahead.com/studio/affiliate/programs/usimsa' },
+        '액티비티/투어': { brand: '마이리얼트립', rate: '최대 6%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206907.png', url: 'https://3hoursahead.com/studio/affiliate/programs/myrealtrip' },
+        '렌터카': { brand: '클룩', rate: '최대 3%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206696.png', url: 'https://3hoursahead.com/studio/affiliate/programs/klook' },
+        '소품': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
+        '가구': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
+        '가전': { brand: '오늘의집', rate: '2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
+        '인테리어': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' }
+    };
 
-    function startTest() { 
-        document.getElementById('progress-container').classList.remove('hidden'); 
-        nextStep(1); 
-    }
-    
-    function nextStep(n) {
-        currentStepIndex = n;
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        const backBtn = document.getElementById('back-button');
-        const progressContainer = document.getElementById('progress-container');
+    function startTest() { 
+        document.getElementById('progress-container').classList.remove('hidden'); 
+        nextStep(1); 
+    }
+    
+    function nextStep(n) {
+        currentStepIndex = n;
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        const backBtn = document.getElementById('back-button');
+        const progressContainer = document.getElementById('progress-container');
 
-        backBtn.style.display = (n >= 1 && n <= 3) ? 'block' : 'none';
-        
-        if (n === 'result' || n === 0) {
-            progressContainer.classList.add('hidden');
-        }
+        backBtn.style.display = (n >= 1 && n <= 3) ? 'block' : 'none';
+        
+        if (n === 'result' || n === 0) {
+            progressContainer.classList.add('hidden');
+        }
 
-        if (n === 2) renderQ2();
-        
-        let targetId = (n === 'loading') ? 'step-loading' : (n === 'result' ? 'step-result' : 'step-' + n);
-        document.getElementById(targetId).classList.add('active');
-        
-        const progressMap = { 0: 0, 1: 25, 2: 50, 3: 75, 'loading': 90, 'result': 100 };
-        document.getElementById('progress-bar').style.width = (progressMap[n] || 0) + '%';
-        document.getElementById('percent-text').innerText = (progressMap[n] || 0) + '%';
-    }
+        if (n === 2) renderQ2();
+        
+        let targetId = (n === 'loading') ? 'step-loading' : (n === 'result' ? 'step-result' : 'step-' + n);
+        document.getElementById(targetId).classList.add('active');
+        
+        const progressMap = { 0: 0, 1: 25, 2: 50, 3: 75, 'loading': 90, 'result': 100 };
+        document.getElementById('progress-bar').style.width = (progressMap[n] || 0) + '%';
+        document.getElementById('percent-text').innerText = (progressMap[n] || 0) + '%';
+    }
 
-    function renderQ2() {
-        const container = document.getElementById('q2-container');
-        container.innerHTML = '';
-        const selectedMemory = answers.q1.text;
-        q2Options[selectedMemory].forEach(opt => {
-            const div = document.createElement('div');
-            div.className = 'tarot-card';
-            div.onclick = () => save('q2', opt.text, opt.icon);
-            div.innerHTML = `<span class="emoji">${opt.icon}</span><span class="label">${opt.text}</span>`;
-            container.appendChild(div);
-        });
-    }
+    function renderQ2() {
+        const container = document.getElementById('q2-container');
+        container.innerHTML = '';
+        const selectedMemory = answers.q1.text;
+        q2Options[selectedMemory].forEach(opt => {
+            const div = document.createElement('div');
+            div.className = 'tarot-card';
+            div.onclick = () => save('q2', opt.text, opt.icon);
+            div.innerHTML = `<span class="emoji">${opt.icon}</span><span class="label">${opt.text}</span>`;
+            container.appendChild(div);
+        });
+    }
 
-    function prevStep() {
-        if (currentStepIndex === 1) { nextStep(0); }
-        else if (currentStepIndex > 1) { nextStep(currentStepIndex - 1); }
-    }
+    function prevStep() {
+        if (currentStepIndex === 1) { nextStep(0); }
+        else if (currentStepIndex > 1) { nextStep(currentStepIndex - 1); }
+    }
 
-    function save(q, val, icon) {
-        answers[q] = { text: val, icon: icon };
-        const cur = parseInt(q.charAt(1));
-        if (cur < 3) nextStep(cur + 1);
-        else { nextStep('loading'); setTimeout(() => calculate(), 1800); }
-    }
+    function save(q, val, icon) {
+        answers[q] = { text: val, icon: icon };
+        const cur = parseInt(q.charAt(1));
+        if (cur < 3) nextStep(cur + 1);
+        else { nextStep('loading'); setTimeout(() => calculate(), 1800); }
+    }
 
-    function calculate() {
-        const result = affiliateMapping[answers.q2.text];
-        document.getElementById('final-brand-main').innerText = result.brand;
-        document.getElementById('result-rate').innerText = result.rate;
-        document.getElementById('final-brand-logo').src = result.logo;
-        
-        const selectedProduct = answers.q2.text;
-        const selectedVisitors = answers.q3.text;
-        
-        document.getElementById('user-review').innerHTML = 
-            `최근에 <span class="text-gray-900 font-bold">${answers.q2.icon} ${selectedProduct}</span>을(를) 이용하셨군요!<br>` +
-            `지금 내 블로그 규모 <span class="text-gray-900 font-bold">${selectedVisitors}</span>에<br>` +
-            `딱 맞는 제휴 프로그램은 <span class="text-gray-900 font-bold">${result.brand}</span>입니다.`;
-            
-        document.getElementById('match-rate').innerText = (Math.floor(Math.random() * 15) + 85) + '%';
-        
-        // 결과 추적 파라미터 구성
-        const queryParams = new URLSearchParams({
-            aid: aid,
-            topic: answers.q1.text,
-            product: selectedProduct,
-            visitors: selectedVisitors,
-            brand: result.brand
-        }).toString();
-        
-        finalLandingUrl = `${result.url}?${queryParams}`;
-        
-        nextStep('result');
-    }
+    function calculate() {
+        const result = affiliateMapping[answers.q2.text];
+        document.getElementById('final-brand-main').innerText = result.brand;
+        document.getElementById('result-rate').innerText = result.rate;
+        document.getElementById('final-brand-logo').src = result.logo;
+        
+        const selectedProduct = answers.q2.text;
+        const selectedVisitors = answers.q3.text;
+        
+        document.getElementById('user-review').innerHTML = 
+            `최근에 <span class="text-gray-900 font-bold">${answers.q2.icon} ${selectedProduct}</span>을(를) 이용하셨군요!<br>` +
+            `지금 내 블로그 규모 <span class="text-gray-900 font-bold">${selectedVisitors}</span>에<br>` +
+            `딱 맞는 제휴 프로그램은 <span class="text-gray-900 font-bold">${result.brand}</span>입니다.`;
+            
+        document.getElementById('match-rate').innerText = (Math.floor(Math.random() * 15) + 85) + '%';
+        
+        // 결과 추적 파라미터 구성
+        const queryParams = new URLSearchParams({
+            aid: aid,
+            topic: answers.q1.text,
+            product: selectedProduct,
+            visitors: selectedVisitors,
+            brand: result.brand
+        }).toString();
+        
+        finalLandingUrl = `${result.url}?${queryParams}`;
+        
+        nextStep('result');
+    }
 
-    function goToLandingPage() {
-        if (finalLandingUrl) {
-            window.location.href = finalLandingUrl;
-        }
-    }
+    function goToLandingPage() {
+        if (finalLandingUrl) {
+            window.location.href = finalLandingUrl;
+        }
+    }
 </script>
 </body>
 </html>
