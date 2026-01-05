@@ -12,9 +12,8 @@
         @font-face {
             font-family: 'Jalnan2';
             src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2310-2@1.0/Jalnan2.woff2') format('woff2');
-            font-weight: 100 900;
+            font-weight: normal;
             font-style: normal;
-            font-display: swap;
         }
 
         :root {
@@ -52,16 +51,14 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 뒤로가기 버튼 위치: 왼쪽 하단 */
         .back-btn {
             position: absolute; bottom: 2rem; left: 2rem;
             color: #94A3B8; cursor: pointer; transition: all 0.2s ease;
             display: none; z-index: 50;
         }
         
-        /* 매칭 진행률 컨테이너 위치: 상단 */
         #progress-container {
-            position: absolute; top: 3rem; left: 0; width: 100%; padding: 0 2.5rem;
+            position: absolute; top: 3.5rem; left: 0; width: 100%; padding: 0 2.5rem;
             z-index: 40; box-sizing: border-box;
         }
 
@@ -103,13 +100,8 @@
         }
 
         #progress-bar { transition: width 0.4s ease; background: linear-gradient(90deg, #3CCCD4 0%, #7C3AED 100%); }
-        
         .choice-summary { width: 100%; padding: 1.25rem 0; margin-top: 0; }
-
-        .brand-logo-img {
-            max-height: 180px; object-fit: contain;
-            margin: 0 auto; animation: float 4s infinite ease-in-out; 
-        }
+        .brand-logo-img { max-height: 180px; object-fit: contain; margin: 0 auto; animation: float 4s infinite ease-in-out; }
 
         @keyframes btn-glow {
             0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
@@ -117,7 +109,6 @@
             100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
         }
         .btn-incentive { animation: btn-glow 2s infinite; }
-
         .loading-dots:after { content: '.'; animation: dots 1.5s steps(5, end) infinite; }
         @keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60% { content: '...'; } 80%, 100% { content: ''; } }
     </style>
@@ -143,7 +134,7 @@
 
     <div id="step-0" class="step active">
         <div class="flex flex-col items-center">
-            <img src="https://github.com/3hatdy/my-assets/blob/main/%E1%84%89%E1%85%A6%E1%84%89%E1%85%B5%E1%84%80%E1%85%A1%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9%20%E1%84%82%E1%85%AE%E1%84%81%E1%85%B5.png?raw=true" class="h-8 mb-6" alt="logo">
+            <img src="https://raw.githubusercontent.com/3hatdy/my-assets/main/%E1%84%89%E1%85%A6%E1%84%89%E1%85%B5%E1%84%80%E1%85%A1%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9%20%E1%84%82%E1%85%AE%E1%84%81%E1%85%B5.png" class="h-8 mb-6" alt="logo">
             <h1 class="text-[26px] font-black mb-16 animated-title" style="font-family: 'Jalnan2', sans-serif;">나의 첫 수익 메이트 매칭</h1>
             <div class="glass-orb"></div>
             <p class="text-gray-500 text-[14px] font-semibold px-4 mb-6">지금 내가 사용하기 딱 좋은<br>제휴링크를 찾아드릴게요.</p>
@@ -183,30 +174,37 @@
     </div>
 
     <div id="step-result" class="step">
-        <div class="best-badge">스타터 등급 최고 수수료율 지급 ✨</div>
-        <h2 id="final-brand-main" class="text-[48px] font-black mb-2 text-gray-900 tracking-tighter leading-tight"></h2>
-        <div class="mb-4">
-            <img id="final-brand-logo" src="" alt="제휴사 로고" class="brand-logo-img">
-        </div>
-        <div class="choice-summary">
-            <p class="text-[16px] font-black text-[#3CCCD4] uppercase mb-1.5">나의 선택 리포트</p>
-            <p id="user-review" class="text-[14px] font-semibold text-gray-600 leading-relaxed px-1"></p>
-        </div>
-        <div class="grid grid-cols-3 gap-2.5 w-full mb-2">
-            <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
-                <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수수료율</p>
-                <p id="result-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
+        <div class="flex flex-col items-center w-full"> 
+            <div class="w-full mb-0"> 
+                <div class="best-badge">스타터 등급 최고 수수료율 지급 ✨</div>
+                <h2 id="final-brand-main" class="text-[48px] font-black mb-2 text-gray-900 tracking-tighter leading-tight"></h2>
+                <div class="mb-4">
+                    <img id="final-brand-logo" src="" alt="제휴사 로고" class="brand-logo-img">
+                </div>
             </div>
-            <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
-                <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수익성</p>
-                <p class="font-extrabold text-[#3CCCD4] text-base">최상</p>
+            
+            <div class="choice-summary mb-2 mt-0">
+                <p class="text-[16px] font-black text-[#3CCCD4] uppercase mb-1.5">나의 선택 리포트</p>
+                <p id="user-review" class="text-[14px] font-semibold text-gray-600 leading-relaxed px-1"></p>
             </div>
-            <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
-                <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">신뢰도</p>
-                <p id="match-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
+
+            <div class="grid grid-cols-3 gap-2.5 w-full mb-2">
+                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
+                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수수료율</p>
+                    <p id="result-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
+                </div>
+                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
+                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">수익성</p>
+                    <p class="font-extrabold text-[#3CCCD4] text-base">최상</p>
+                </div>
+                <div class="bg-gray-50 py-3 rounded-xl border border-gray-100">
+                    <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase">신뢰도</p>
+                    <p id="match-rate" class="font-extrabold text-[#3CCCD4] text-base"></p>
+                </div>
             </div>
+
+            <button id="result-link-btn" onclick="goToLandingPage()" class="capsule-button max-w-[300px] mb-4 btn-incentive">제휴링크 생성하러 가기 🔗</button>
         </div>
-        <button id="result-link-btn" onclick="goToLandingPage()" class="capsule-button max-w-[300px] mb-4 btn-incentive">제휴링크 생성하러 가기 🔗</button>
     </div>
 </div>
 
@@ -223,15 +221,15 @@
     };
 
     const affiliateMapping = {
-        '숙소': { brand: '아고다', rate: '최대 2.4%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206905.png', url: 'https://3hoursahead.com/studio/affiliate/programs/agoda' },
-        '항공권': { brand: '트립닷컴', rate: '최대 0.9%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206688.png', url: 'https://3hoursahead.com/studio/affiliate/programs/tripcom' },
-        'e-sim': { brand: '유심사', rate: '최대 6%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206909.png', url: 'https://3hoursahead.com/studio/affiliate/programs/usimsa' },
-        '액티비티/투어': { brand: '마이리얼트립', rate: '최대 6%', logo: 'https://fastly.jsdelivr.net/gh/3hatdy/my-assets/main/Group%206907.png', url: 'https://3hoursahead.com/studio/affiliate/programs/myrealtrip' },
-        '렌터카': { brand: '클룩', rate: '최대 3%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206696.png', url: 'https://3hoursahead.com/studio/affiliate/programs/klook' },
-        '소품': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
-        '가구': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
-        '가전': { brand: '오늘의집', rate: '2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
-        '인테리어': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/teddy4444/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' }
+        '숙소': { brand: '아고다', rate: '최대 2.4%', logo: 'https://raw.githubusercontent.com/3hatdy/my-assets/main/Group%206905.png', url: 'https://3hoursahead.com/studio/affiliate/programs/agoda' },
+        '항공권': { brand: '트립닷컴', rate: '최대 0.9%', logo: 'https://raw.githubusercontent.com/3hatdy/my-assets/main/Group%206688.png', url: 'https://3hoursahead.com/studio/affiliate/programs/tripcom' },
+        'e-sim': { brand: '유심사', rate: '최대 6%', logo: 'https://raw.githubusercontent.com/3hatdy/my-assets/main/Group%206909.png', url: 'https://3hoursahead.com/studio/affiliate/programs/usimsa' },
+        '액티비티/투어': { brand: '마이리얼트립', rate: '최대 6%', logo: 'https://raw.githubusercontent.com/3hatdy/my-assets/main/Group%206907.png', url: 'https://3hoursahead.com/studio/affiliate/programs/myrealtrip' },
+        '렌터카': { brand: '클룩', rate: '최대 3%', logo: 'https://raw.githubusercontent.com/3hatdy/my-assets/main/Group%206696.png', url: 'https://3hoursahead.com/studio/affiliate/programs/klook' },
+        '소품': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/3hatdy/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
+        '가구': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/3hatdy/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
+        '가전': { brand: '오늘의집', rate: '2.5%', logo: 'https://raw.githubusercontent.com/3hatdy/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' },
+        '인테리어': { brand: '오늘의집', rate: '최대 2.5%', logo: 'https://raw.githubusercontent.com/3hatdy/my-assets/main/Group%206692.png', url: 'https://3hoursahead.com/studio/affiliate/programs/linkprice_ohouse' }
     };
 
     function startTest() { document.getElementById('progress-container').classList.remove('hidden'); nextStep(1); }
