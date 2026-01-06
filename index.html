@@ -11,7 +11,6 @@
         /* Jalnan 2 폰트 정의 */
         @font-face {
            font-family: 'Jalnan2';
-           /* 내 폴더에 있는 파일을 직접 사용 */
            src: url('./Jalnan2.otf') format('opentype'); 
            font-weight: 700; 
            font-style: normal;
@@ -115,7 +114,7 @@
         }
         .btn-incentive { animation: btn-glow 2s infinite; }
 
-        /* 새로 추가된 로딩 점 애니메이션 */
+        /* 로딩 점 애니메이션 */
         .loading-dots::after {
             content: '';
             animation: dots 1.5s steps(4, end) infinite;
@@ -238,13 +237,10 @@
     let currentStepIndex = 0;
     let finalLandingUrl = "";
     
-    // 요청하신 수정된 setAnswer 함수 (디코딩 및 쉼표 제거)
+    // setAnswer: 쉼표 제거 (기존 기능 유지)
     function setAnswer(key, value) {
         if (typeof value === 'string') {
-            // 1단계: %2F, %2C 같은 인코딩 문자를 원래 특수문자(/, ,)로 복구
             let decodedValue = decodeURIComponent(value);
-
-            // 2단계: 그 후 쉼표(,) 제거
             answers[key] = decodedValue.replace(/,/g, ''); 
         } else {
             answers[key] = value;
@@ -304,13 +300,11 @@
     }
 
     function save(q, val, icon) {
-        // [수정 적용] 여기서 setAnswer의 정제 로직(디코딩 및 쉼표 제거)을 적용해 줍니다.
         let cleanVal = val;
         if (typeof val === 'string') {
             cleanVal = decodeURIComponent(val).replace(/,/g, '');
         }
         
-        // 정제된 값(cleanVal)을 저장합니다. (예: "2,000" -> "2000")
         answers[q] = { text: cleanVal, icon: icon };
         
         const cur = parseInt(q.charAt(1));
@@ -333,7 +327,19 @@
             `딱 맞는 제휴 프로그램은 <span class="text-gray-900 font-bold">${result.brand}</span>입니다.`;
 
         document.getElementById('match-rate').innerText = (Math.floor(Math.random() * 15) + 85) + '%';
-        const queryParams = new URLSearchParams({ aid: aid, topic: answers.q1.text, product: selectedProduct, visitors: selectedVisitors, brand: result.brand }).toString();
+        
+        // [핵심 수정] URL 파라미터를 만들 때, 슬래시(/)를 공백( )으로 치환합니다.
+        // URL 인코딩 규칙상 공백( )은 자동으로 + 기호로 변환되어 들어갑니다.
+        const paramProduct = selectedProduct.replace(/\//g, ' ');
+
+        const queryParams = new URLSearchParams({ 
+            aid: aid, 
+            topic: answers.q1.text, 
+            product: paramProduct, // 변환된 값 사용 (액티비티/투어 -> 액티비티 투어 -> 액티비티+투어)
+            visitors: selectedVisitors, 
+            brand: result.brand 
+        }).toString();
+
         finalLandingUrl = `${result.url}?${queryParams}`;
         nextStep('result');
     }
