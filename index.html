@@ -8,7 +8,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap');
         
-        /* Jalnan 2 폰트 정의 (로컬 파일이 없으므로 웹 폰트 대체 혹은 폴백 적용) */
         @font-face {
            font-family: 'Jalnan2';
            src: url('./Jalnan2.otf') format('opentype'); 
@@ -52,14 +51,12 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 뒤로가기 버튼 위치: 왼쪽 하단 */
         .back-btn {
             position: absolute; bottom: 2rem; left: 2rem;
             color: #94A3B8; cursor: pointer; transition: all 0.2s ease;
             display: none; z-index: 50;
         }
         
-        /* 매칭 진행률 컨테이너 위치: 상단 */
         #progress-container {
             position: absolute; top: 3.5rem; left: 0; width: 100%; padding: 0 2.5rem;
             z-index: 40; box-sizing: border-box;
@@ -114,12 +111,11 @@
         }
         .btn-incentive { animation: btn-glow 2s infinite; }
 
-        /* 로딩 점 애니메이션 */
         .loading-dots::after {
             content: '';
             animation: dots 1.5s steps(4, end) infinite;
             display: inline-block;
-            width: 1.2em; /* 점이 생길 공간 확보 */
+            width: 1.2em;
             text-align: left;
         }
 
@@ -197,7 +193,8 @@
     <div id="step-result" class="step">
         <div class="flex flex-col items-center w-full"> 
             <div class="w-full mb-0"> 
-                <div class="best-badge">내 첫 수익 제휴링크 ✨</div>
+                <div id="result-badge" class="best-badge">내 첫 수익 제휴링크 ✨</div>
+                
                 <h2 id="final-brand-main" class="text-[48px] font-black mb-2 text-gray-900 tracking-tighter leading-tight"></h2>
                 <div class="mb-4">
                     <img id="final-brand-logo" src="" alt="제휴사 로고" class="brand-logo-img">
@@ -231,22 +228,11 @@
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-    // aid 값이 없을 경우 오류 방지를 위해 기본값 할당 (파라미터 전달용)
-    const aid = urlParams.get('aid') || 'default_aid'; 
+    const aid = urlParams.get('aid') || 'unknown_user'; 
 
     let answers = {};
     let currentStepIndex = 0;
     let finalLandingUrl = "";
-    
-    // setAnswer: 쉼표 제거 로직 (유지)
-    function setAnswer(key, value) {
-        if (typeof value === 'string') {
-            let decodedValue = decodeURIComponent(value);
-            answers[key] = decodedValue.replace(/,/g, ''); 
-        } else {
-            answers[key] = value;
-        }
-    }
     
     const q2Options = {
         '여행 포스팅': [{ text: '숙소', icon: '🏨' }, { text: '항공권', icon: '✈️' }, { text: 'e-sim', icon: '📱' }, { text: '액티비티/투어', icon: '🎡' }, { text: '렌터카', icon: '🚗' }],
@@ -305,9 +291,7 @@
         if (typeof val === 'string') {
             cleanVal = decodeURIComponent(val).replace(/,/g, '');
         }
-        
         answers[q] = { text: cleanVal, icon: icon };
-        
         const cur = parseInt(q.charAt(1));
         if (cur < 3) nextStep(cur + 1);
         else { nextStep('loading'); setTimeout(() => calculate(), 2500); }
@@ -319,6 +303,9 @@
         document.getElementById('result-rate').innerText = result.rate;
         document.getElementById('final-brand-logo').src = result.logo;
         
+        // [수정 부분] 최상단 뱃지에 AID 표시
+        document.getElementById('result-badge').innerText = `AID : ${aid}`;
+        
         const selectedProduct = answers.q2.text;
         const selectedVisitors = answers.q3.text;
         
@@ -329,9 +316,25 @@
 
         document.getElementById('match-rate').innerText = (Math.floor(Math.random() * 15) + 85) + '%';
         
-        // [로직 변경] aid 파라미터를 다시 포함하여 최종 URL로 전달
+        // 구글 스프레드시트 데이터 전송
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxxS7QQRT__LEgojqMuIDIz9zghFU8ih-32yVg202HvJBn-GqKI6EYfn02qiCL5K2PKsQ/exec'; 
+        const payload = {
+            aid: aid,
+            q1: answers.q1.text,
+            q2: answers.q2.text,
+            q3: answers.q3.text,
+            result: result.brand
+        };
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).catch(error => console.error('Error!', error.message));
+
         const queryParams = new URLSearchParams({ 
-            aid: aid, // 들어온 aid 값을 그대로 유지
+            aid: aid,
             topic: answers.q1.text, 
             product: selectedProduct.replace(/\//g, ' '), 
             visitors: selectedVisitors, 
