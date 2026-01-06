@@ -237,7 +237,7 @@
     let currentStepIndex = 0;
     let finalLandingUrl = "";
     
-    // setAnswer: 쉼표 제거 (기존 기능 유지)
+    // setAnswer: 쉼표 제거 로직 (유지)
     function setAnswer(key, value) {
         if (typeof value === 'string') {
             let decodedValue = decodeURIComponent(value);
@@ -328,14 +328,14 @@
 
         document.getElementById('match-rate').innerText = (Math.floor(Math.random() * 15) + 85) + '%';
         
-        // [핵심 수정] URL 파라미터를 만들 때, 슬래시(/)를 공백( )으로 치환합니다.
-        // URL 인코딩 규칙상 공백( )은 자동으로 + 기호로 변환되어 들어갑니다.
-        const paramProduct = selectedProduct.replace(/\//g, ' ');
-
+        // ▼▼▼▼▼▼ [확실한 수정] ▼▼▼▼▼▼
+        // 여기서 바로 .replace를 사용하여 슬래시(/)를 공백( )으로 강제 변환합니다.
+        // URLSearchParams는 공백을 자동으로 '+'로 변환합니다.
+        
         const queryParams = new URLSearchParams({ 
             aid: aid, 
             topic: answers.q1.text, 
-            product: paramProduct, // 변환된 값 사용 (액티비티/투어 -> 액티비티 투어 -> 액티비티+투어)
+            product: selectedProduct.replace(/\//g, ' '), // 핵심 변경 사항: 변수 사용 시 즉시 치환
             visitors: selectedVisitors, 
             brand: result.brand 
         }).toString();
