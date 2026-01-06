@@ -156,7 +156,7 @@
             <h1 class="text-[24px] font-black mb-16 animated-title" style="font-family: 'Jalnan2', sans-serif;">나의 첫 수익 메이트 매칭</h1>
             <div class="glass-orb"></div>
             <p class="text-gray-500 text-[14px] font-semibold px-4 mb-6">지금 내가 사용하기 딱 좋은<br>제휴링크를 찾아드릴게요.</p>
-            <button onclick="startTest()" class="capsule-button max-w-[280px]">시작하기 ✨</button>
+            <button onclick="startTest()" class="capsule-button max-w-[280px] btn-incentive">시작하기 ✨</button>
         </div>
     </div>
 
@@ -328,14 +328,11 @@
 
         document.getElementById('match-rate').innerText = (Math.floor(Math.random() * 15) + 85) + '%';
         
-        // ▼▼▼▼▼▼ [확실한 수정] ▼▼▼▼▼▼
-        // 여기서 바로 .replace를 사용하여 슬래시(/)를 공백( )으로 강제 변환합니다.
-        // URLSearchParams는 공백을 자동으로 '+'로 변환합니다.
-        
+        // [로직 유지 확인] 파라미터 직접 치환 로직 (슬래시 -> 공백)
         const queryParams = new URLSearchParams({ 
             aid: aid, 
             topic: answers.q1.text, 
-            product: selectedProduct.replace(/\//g, ' '), // 핵심 변경 사항: 변수 사용 시 즉시 치환
+            product: selectedProduct.replace(/\//g, ' '), 
             visitors: selectedVisitors, 
             brand: result.brand 
         }).toString();
