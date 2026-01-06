@@ -232,11 +232,22 @@
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const aid = urlParams.get('aid') || 'direct';
-    let answers = {};
-    let currentStepIndex = 0;
-    let finalLandingUrl = "";
+const aid = urlParams.get('aid') || 'direct'; // AID 로직 유지
 
+let answers = {};
+let currentStepIndex = 0;
+let finalLandingUrl = "";
+    
+function setAnswer(key, value) {
+    if (typeof value === 'string') {
+        // 문자열인 경우, 모든 쉼표(,)를 빈 문자열('')로 대체하여 제거
+        answers[key] = value.replace(/,/g, '');
+    } else {
+        // 문자열이 아니면(숫자 등) 그대로 저장
+        answers[key] = value;
+    }
+}
+    
     const q2Options = {
         '여행 포스팅': [{ text: '숙소', icon: '🏨' }, { text: '항공권', icon: '✈️' }, { text: 'e-sim', icon: '📱' }, { text: '액티비티/투어', icon: '🎡' }, { text: '렌터카', icon: '🚗' }],
         '일상·리빙 포스팅': [{ text: '소품', icon: '🕯️' }, { text: '가구', icon: '🛋️' }, { text: '가전', icon: '📺' }, { text: '인테리어', icon: '🖼️' }]
