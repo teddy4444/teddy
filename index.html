@@ -231,7 +231,7 @@
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-    // aid 값이 없을 경우 오류 방지를 위해 기본값 할당 (이제 파라미터 전달에는 사용되지 않음)
+    // aid 값이 없을 경우 오류 방지를 위해 기본값 할당 (파라미터 전달용)
     const aid = urlParams.get('aid') || 'default_aid'; 
 
     let answers = {};
@@ -329,9 +329,9 @@
 
         document.getElementById('match-rate').innerText = (Math.floor(Math.random() * 15) + 85) + '%';
         
-        // [로직 유지 확인] 파라미터 직접 치환 로직 (슬래시 -> 공백)
-        // aid 파라미터 제외 (알림톡 변수 처리로 인해 중복 방지)
+        // [로직 변경] aid 파라미터를 다시 포함하여 최종 URL로 전달
         const queryParams = new URLSearchParams({ 
+            aid: aid, // 들어온 aid 값을 그대로 유지
             topic: answers.q1.text, 
             product: selectedProduct.replace(/\//g, ' '), 
             visitors: selectedVisitors, 
