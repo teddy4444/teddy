@@ -293,7 +293,7 @@
         answers[q] = { text: val, icon: icon };
         const cur = parseInt(q.charAt(1));
         if (cur < 3) nextStep(cur + 1);
-        else { nextStep('loading'); setTimeout(() => calculate(), 1800); }
+        else { nextStep('loading'); setTimeout(() => calculate(), 2500); }
     }
 
     function calculate() {
